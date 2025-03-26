@@ -19,10 +19,10 @@ const errorMsg = document.querySelector('.errormsg');
 
 let bsClipboard = new ClipboardJS('.copy-bootstrap-btn');
 bsClipboard.on('success', function (e) {
-  alert("Стили для Bootstrap скопированы!");
+  console.log(e.text);
 });
 bsClipboard.on('error', function (e) {
-  console.log("Ошибка копирования стилей Bootstrap:", e);
+  console.log(e);
 });
 
 const colorPicker = new iro.ColorPicker('#picker', {
@@ -196,10 +196,14 @@ saveButton.addEventListener('click', () => {
 // Установка стилей Bootstrap в атрибут кнопки для копирования(идёт до самого копирования)
 function setBootstrapStylesToButton() {
   const bootstrapStyles = bsstyles(currentPalette).trim();
+  console.log(bootstrapStyles);
   copyBootstrapButton.setAttribute('data-clipboard-text', bootstrapStyles);
 }
 
 
 copyBootstrapButton.addEventListener('click', () => {
+  if (copyBootstrapButton.classList.contains('inactive')) {
+    return;
+  }
   setBootstrapStylesToButton(); // Устанавливаем стили в атрибут перед копированием
 });

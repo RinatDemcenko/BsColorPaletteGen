@@ -77,3 +77,17 @@ export const bsstyles = (currentPalette) => `
     border-color: ${adjustColor(currentPalette[8], -20)};
   }
 `;
+
+
+function adjustColor(color, percent) {
+  let hex = color.replace('#', '');
+  let r = parseInt(hex.substr(0, 2), 16);
+  let g = parseInt(hex.substr(2, 2), 16);
+  let b = parseInt(hex.substr(4, 2), 16);
+
+  r = Math.min(255, Math.max(0, r + (r * percent) / 100));
+  g = Math.min(255, Math.max(0, g + (g * percent) / 100));
+  b = Math.min(255, Math.max(0, b + (b * percent) / 100));
+
+  return `#${Math.round(r).toString(16).padStart(2, '0')}${Math.round(g).toString(16).padStart(2, '0')}${Math.round(b).toString(16).padStart(2, '0')}`;
+}
