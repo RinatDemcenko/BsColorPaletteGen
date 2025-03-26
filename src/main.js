@@ -14,6 +14,8 @@ const getPaletteButton = document.querySelector('.generate-btn');
 const paletteContainer = document.querySelector('.container');
 const saveButton = document.querySelector('.save-button');
 const copyBootstrapButton = document.querySelector('.copy-bootstrap-btn');
+const hexCode = document.querySelector('#colorInput');
+const errorMsg = document.querySelector('.errormsg');
 
 let bsClipboard = new ClipboardJS('.copy-bootstrap-btn');
 bsClipboard.on('success', function (e) {
@@ -24,7 +26,7 @@ bsClipboard.on('error', function (e) {
 });
 
 const colorPicker = new iro.ColorPicker('#picker', {
-  width: 100,
+  width: 180,
   color: "#ffffff"
 });
 const colorPickerContainer = document.querySelector('.picker-container');
@@ -99,6 +101,7 @@ async function getPalette() {
 }
 
 let selectedIndex = 0;
+let screenWidth = screen.width;
 
 function selectEditSections() {
   const editSections = document.querySelectorAll('.bottom-section');
@@ -106,9 +109,16 @@ function selectEditSections() {
     section.addEventListener('click', (event) => {
       selectedIndex = event.target.getAttribute('editId');
       colorPickerContainer.classList.add('visible');
-      colorPickerContainer.style.left = (event.clientX - 75) + 'px';
-      colorPickerContainer.style.top = (event.clientY + 50) + 'px';
-      colorPicker.color.hexString = currentPalette[selectedIndex]; // Синхронизация с текущим цветом
+      if (screenWidth > 1000) {
+        colorPickerContainer.style.left = (event.clientX - 315) + 'px';
+        colorPickerContainer.style.top = (event.clientY - 290) + 'px';
+      }
+      else if (screenWidth > 565) {
+        colorPickerContainer.style.left = (event.clientX - 215) + 'px';
+        colorPickerContainer.style.top = (event.clientY - 290) + 'px';
+      }
+      colorPicker.color.hexString = currentPalette[selectedIndex];
+      hexCode.value = currentPalette[selectedIndex]; // Синхронизация с текущим цветом
     });
   }
 }
@@ -150,9 +160,30 @@ let changedColor = '#ffffff';
 colorPicker.on('color:change', function (color) {
   changedColor = color.hexString;
   currentPalette[selectedIndex] = changedColor;
-  const targetBox = paletteContainer.querySelector(`.bottom-section[editId="${selectedIndex}"]`).parentElement;
-  const topSection = targetBox.querySelector('.top-section');
-  const editContainer = targetBox.querySelector('.edit-container');
+  let targetBox = paletteContainer.querySelector(`.bottom-section[editId="${selectedIndex}"]`).parentElement;
+  let topSection = targetBox.querySelector('.top-section');
+  let editContainer = targetBox.querySelector('.edit-container');
+  topSection.style.backgroundColor = changedColor;
+  editContainer.textContent = changedColor;
+  editContainer.setAttribute('data-clipboard-text', changedColor);
+  hexCode.value = changedColor;
+});
+
+hexCode.addEventListener('input', () => {
+  let targetBox = paletteContainer.querySelector(`.bottom-section[editId="${selectedIndex}"]`).parentElement;
+  let topSection = targetBox.querySelector('.top-section');
+  let editContainer = targetBox.querySelector('.edit-container');
+  try {
+    colorPicker.color.hexString = hexCode.value;
+    changedColor = hexCode.value;
+    currentPalette[selectedIndex] = changedColor;
+    errorMsg.style.display = 'none';
+  }
+  catch (error) {
+    changedColor = currentPalette[selectedIndex];
+    errorMsg.style.display = 'block';
+  }
+  colorPicker.color.hexString = changedColor;
   topSection.style.backgroundColor = changedColor;
   editContainer.textContent = changedColor;
   editContainer.setAttribute('data-clipboard-text', changedColor);

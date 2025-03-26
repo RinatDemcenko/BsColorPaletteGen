@@ -103,7 +103,7 @@ body {
   display: flex;
   gap: 20px;
   justify-content: center;
-  width: 60%;
+  width: 75%;
   flex-wrap: wrap;
 }
 
@@ -171,6 +171,19 @@ body {
   opacity: 1; 
 }
 
+#colorInput{
+  width:150px;
+  height: 30px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  font-size: 16px;
+  padding-left: 10px;
+  font-family: 'Arial', sans-serif;
+  font-weight: 500;
+  color: #333;
+  transition: background-color 0.2s ease;
+}
+
 .edit-container {
   width: 105px;
   height: 35px;
@@ -196,8 +209,8 @@ body {
 
 .picker-container {
   position: absolute;
-  width: 130px;
-  height: 200px;
+  width: 200px;
+  height: 370px;
   background-color: #ffffff;
   z-index: 1000;
   display: flex;
@@ -225,6 +238,7 @@ body {
 .save-button {
   margin-top: 10px; 
   padding: 8px 16px;
+  width:60%;
   background-color: #4a90e2; 
   color: #ffffff;
   border: none;
@@ -275,7 +289,14 @@ body {
   cursor: not-allowed;
 }
 
-/* Адаптивность от ИИ */
+.errormsg{
+  display: none;
+  color: red;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: 'Arial', sans-serif;
+  margin-top: 10px;
+}
 
 @media (max-width: 1024px) {
   .wrapper {
@@ -331,16 +352,7 @@ body {
     font-size: 10px;
   }
 
-  .picker-container {
-    width: 110px; /* Уменьшаем размер контейнера выбора цвета */
-    height: 180px;
-    padding: 8px;
-  }
 
-  .save-button {
-    padding: 6px 12px; /* Уменьшаем размер кнопки */
-    font-size: 12px;
-  }
 
   .copy-bootstrap-btn {
     width: 250px; /* Уменьшаем размер кнопки */
@@ -349,8 +361,7 @@ body {
   }
 }
 
-/* Адаптивность для телефонов (менее 768px) */
-@media (max-width: 500px) {
+@media (max-width: 565px) {
 
   .instructions {
     font-size: 10px; 
@@ -363,6 +374,13 @@ body {
 
   .slider-label {
     font-size: 12px;
+  }
+
+
+  .picker-container {
+    position:fixed;
+    width:100%;
+    top: 50%;
   }
 
   .slider {
@@ -402,16 +420,7 @@ body {
     font-size: 8px;
   }
 
-  .picker-container {
-    width: 100px;
-    height: 160px;
-    padding: 6px;
-  }
 
-  .save-button {
-    padding: 5px 10px;
-    font-size: 10px;
-  }
 
   .copy-bootstrap-btn {
     width: 200px;
