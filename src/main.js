@@ -123,7 +123,7 @@ function selectEditSections() {
   }
 }
 
-const names = ['Светлый', 'Фон', 'Тёмный/текст', 'Основн. кнопки', 'Вторичн. кнопки', 'Кнопки Info', 'Кнопки Success', 'Кнопки Warning', 'Кнопки Danger'];
+const names = ['Светлый', 'Фон', 'Тёмный/текст', 'Основной', 'Вторичный', 'Info', 'Success', 'Warning', 'Danger'];
 
 getPaletteButton.addEventListener('click', () => {
   json_data.palette[3] = generateDarkColor();
