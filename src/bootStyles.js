@@ -1,93 +1,20 @@
 export const bsstyles = (currentPalette) => `
-  /* Текстовые цвета */
-  .text-light { color: ${currentPalette[0]}; }
-  .text-white { color: ${currentPalette[1]}; }
-  .text-dark { color: ${currentPalette[2]}; }
-  .text-primary { color: ${currentPalette[3]}; }
-  .text-secondary { color: ${currentPalette[4]}; }
-  .text-info { color: ${currentPalette[5]}; }
-  .text-success { color: ${currentPalette[6]}; }
-  .text-warning { color: ${currentPalette[7]}; }
-  .text-danger { color: ${currentPalette[8]}; }
+// Для файла custom-bootstrap.scss
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
 
-  /* Фоновые цвета */
-  .bg-light { background-color: ${currentPalette[0]}; }
-  .bg-white { background-color: ${currentPalette[1]}; }
-  .bg-dark { background-color: ${currentPalette[2]}; }
-  .bg-primary { background-color: ${currentPalette[3]}; }
-  .bg-secondary { background-color: ${currentPalette[4]}; }
-  .bg-info { background-color: ${currentPalette[5]}; }
-  .bg-success { background-color: ${currentPalette[6]}; }
-  .bg-warning { background-color: ${currentPalette[7]}; }
-  .bg-danger { background-color: ${currentPalette[8]}; }
+$theme-colors: (
+  "light":      ${currentPalette[0]},    // Светлый
+  "dark":       ${currentPalette[2]},    // Тёмный/текст
+  "primary":    ${currentPalette[3]},    // Основной
+  "secondary":  ${currentPalette[4]},    // Вторичный
+  "info":       ${currentPalette[5]},    // Info
+  "success":    ${currentPalette[6]},    // Success
+  "warning":    ${currentPalette[7]},    // Warning
+  "danger":     ${currentPalette[8]}     // Danger
+);
 
-  /* Стили кнопок */
-  .btn-primary {
-    background-color: ${currentPalette[3]};
-    border-color: ${currentPalette[3]};
-    color: ${currentPalette[1]}; /* Белый текст для контраста */
-  }
-  .btn-primary:hover {
-    background-color: ${adjustColor(currentPalette[3], -20)}; /* Темнее на 20% */
-    border-color: ${adjustColor(currentPalette[3], -20)};
-  }
-  .btn-secondary {
-    background-color: ${currentPalette[4]};
-    border-color: ${currentPalette[4]};
-    color: ${currentPalette[0]}; /* Светлый текст */
-  }
-  .btn-secondary:hover {
-    background-color: ${adjustColor(currentPalette[4], -20)};
-    border-color: ${adjustColor(currentPalette[4], -20)};
-  }
-  .btn-info {
-    background-color: ${currentPalette[5]};
-    border-color: ${currentPalette[5]};
-    color: ${currentPalette[1]};
-  }
-  .btn-info:hover {
-    background-color: ${adjustColor(currentPalette[5], -20)};
-    border-color: ${adjustColor(currentPalette[5], -20)};
-  }
-  .btn-success {
-    background-color: ${currentPalette[6]};
-    border-color: ${currentPalette[6]};
-    color: ${currentPalette[1]};
-  }
-  .btn-success:hover {
-    background-color: ${adjustColor(currentPalette[6], -20)};
-    border-color: ${adjustColor(currentPalette[6], -20)};
-  }
-  .btn-warning {
-    background-color: ${currentPalette[7]};
-    border-color: ${currentPalette[7]};
-    color: ${currentPalette[2]}; /* Тёмный текст */
-  }
-  .btn-warning:hover {
-    background-color: ${adjustColor(currentPalette[7], -20)};
-    border-color: ${adjustColor(currentPalette[7], -20)};
-  }
-  .btn-danger {
-    background-color: ${currentPalette[8]};
-    border-color: ${currentPalette[8]};
-    color: ${currentPalette[1]};
-  }
-  .btn-danger:hover {
-    background-color: ${adjustColor(currentPalette[8], -20)};
-    border-color: ${adjustColor(currentPalette[8], -20)};
-  }
+$white: ${currentPalette[1]}; // Фон/белый
+
+@import "node_modules/bootstrap/scss/bootstrap";
 `;
-
-
-function adjustColor(color, percent) {
-  let hex = color.replace('#', '');
-  let r = parseInt(hex.substr(0, 2), 16);
-  let g = parseInt(hex.substr(2, 2), 16);
-  let b = parseInt(hex.substr(4, 2), 16);
-
-  r = Math.min(255, Math.max(0, r + (r * percent) / 100));
-  g = Math.min(255, Math.max(0, g + (g * percent) / 100));
-  b = Math.min(255, Math.max(0, b + (b * percent) / 100));
-
-  return `#${Math.round(r).toString(16).padStart(2, '0')}${Math.round(g).toString(16).padStart(2, '0')}${Math.round(b).toString(16).padStart(2, '0')}`;
-}
